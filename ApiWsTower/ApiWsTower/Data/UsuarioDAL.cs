@@ -29,7 +29,7 @@ namespace ApiWsTower.Data
         public IEnumerable<Usuario> GetAll()
         {
             List<Usuario> usuarioList = new List<Usuario>();
-            Usuario usuario; 
+            Usuario usuario;
             conn = new SqlConnection(_conn);
             cmd = new SqlCommand("select * from Usuario", conn);
             adapter = new SqlDataAdapter(cmd);
@@ -53,7 +53,29 @@ namespace ApiWsTower.Data
 
         public Usuario Login(Usuario usuario)
         {
-            throw new NotImplementedException();
+            Usuario _usuario;
+            conn = new SqlConnection(_conn);
+            cmd = new SqlCommand($"select * from Usuario where email = '{usuario.Email}' and senha = '{usuario.Senha}'", conn);
+            adapter = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            conn.Open();
+            adapter.Fill(dt);
+            _usuario = usuario;
+            foreach (DataRow item in dt.Rows)
+            {
+                _usuario.Id = Convert.ToInt32(item["id"]);
+                _usuario.Nome = item["nome"].ToString();
+                _usuario.Email = item["email"].ToString();
+                _usuario.Senha = "";
+                _usuario.Telefone = item["telefone"].ToString();
+                _usuario.Funcao_id = Convert.ToInt32(item["funcaoID"]);
+            }
+            conn.Close();
+            if (_usuario == null)
+            {
+                return null;
+            }
+            return _usuario;
         }
     }
 }

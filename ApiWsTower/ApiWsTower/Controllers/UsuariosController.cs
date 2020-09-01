@@ -24,5 +24,17 @@ namespace ApiWsTower.Controllers
         {
             return _dal.GetAll();
         }
+        [HttpPost]
+        [Route("login")]
+        public IActionResult login(Usuario usuario)
+        {
+            if (usuario == null)
+            {
+                return BadRequest();
+            }
+            var _usuario = _dal.Login(usuario);
+            return new ObjectResult(_usuario);
+
+        }
     }
 }
