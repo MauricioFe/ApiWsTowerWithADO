@@ -22,7 +22,7 @@ namespace ApiWsTower.Controllers
         [HttpGet]
         public IEnumerable<Usuario> GetUsuarios()
         {
-
+            return _dal.GetAll();
         }
     }
 }
