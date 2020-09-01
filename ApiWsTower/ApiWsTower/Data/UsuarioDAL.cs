@@ -23,7 +23,24 @@ namespace ApiWsTower.Data
         SqlDataAdapter adapter;
         public Usuario Find(int id)
         {
-            throw new NotImplementedException();
+            Usuario usuario = new Usuario();
+            conn = new SqlConnection(_conn);
+            cmd = new SqlCommand($"select * from Usuario where id = {id}", conn);
+            adapter = new SqlDataAdapter(cmd);
+            dt = new DataTable();
+            conn.Open();
+            adapter.Fill(dt);
+            foreach (DataRow item in dt.Rows)
+            {
+                usuario.Id = Convert.ToInt32(item["id"]);
+                usuario.Nome = item["nome"].ToString();
+                usuario.Email = item["email"].ToString();
+                usuario.Senha = item["senha"].ToString();
+                usuario.Telefone = item["telefone"].ToString();
+                usuario.Funcao_id = Convert.ToInt32(item["funcaoID"]);
+            }
+            conn.Close();
+            return usuario;
         }
 
         public IEnumerable<Usuario> GetAll()

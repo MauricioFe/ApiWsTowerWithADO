@@ -26,7 +26,7 @@ namespace ApiWsTower.Controllers
         }
         [HttpPost]
         [Route("login")]
-        public IActionResult login(Usuario usuario)
+        public IActionResult login([FromBody] Usuario usuario)
         {
             if (usuario == null)
             {
@@ -34,6 +34,18 @@ namespace ApiWsTower.Controllers
             }
             var _usuario = _dal.Login(usuario);
             return new ObjectResult(_usuario);
+
+        }
+        [HttpGet("{id}")]
+        public IActionResult Find(int id)
+        {
+            var usuario = _dal.Find(id);
+            if (usuario == null)
+            {
+                return BadRequest();
+            }
+           
+            return new ObjectResult(usuario);
 
         }
     }
