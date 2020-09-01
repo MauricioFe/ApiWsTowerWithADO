@@ -61,7 +61,15 @@ namespace ApiWsTower.Data
                 relatos.Imagem = item["imagem"].ToString();
                 relatos.Latitude = decimal.Parse(item["latitude"].ToString());
                 relatos.Longitude = decimal.Parse(item["longitude"].ToString());
-                relatos.UsuarioId = Convert.ToInt32(item["usuarioID"]);
+                if (item["usuarioid"].ToString() == "")
+                {
+                    relatos.UsuarioId = null;
+                }
+                else
+                {
+                    relatos.UsuarioId = int.Parse(item["usuarioid"].ToString());
+                }
+                
                 relatosList.Add(relatos);
             }
             conn.Close();
@@ -69,17 +77,29 @@ namespace ApiWsTower.Data
         }
         public void Add(Relatos relatos)
         {
-            throw new NotImplementedException();
+            conn = new SqlConnection(_conn);
+            cmd = new SqlCommand($"insert into Relatos values ('{relatos.Relato}', '{relatos.Imagem}', {relatos.Latitude.ToString().Replace(",", ".")}, {relatos.Longitude.ToString().Replace(",", ".")}, {relatos.UsuarioId})", conn);
+            conn.Open();
+            cmd.ExecuteNonQuery();
+            conn.Close();
         }
 
-        public void Update(Relatos relatos)
+        public void Update(Relatos relatos, int id)
         {
-            throw new NotImplementedException();
+            conn = new SqlConnection(_conn);
+            cmd = new SqlCommand($"update Relatos set relato = '{relatos.Relato}', imagem = '{relatos.Imagem}', latitude = {relatos.Latitude.ToString().Replace(",", ".")}, longitude = {relatos.Longitude.ToString().Replace(",", ".")}, usuarioid = {relatos.UsuarioId} where id = {relatos.Id}", conn);
+            conn.Open();
+            cmd.ExecuteNonQuery();
+            conn.Close();
         }
 
         public void Remove(int id)
         {
-            throw new NotImplementedException();
+            conn = new SqlConnection(_conn);
+            cmd = new SqlCommand($"delete from Relatos where id = {id}", conn);
+            conn.Open();
+            cmd.ExecuteNonQuery();
+            conn.Close();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace ApiWsTower.Data
         IEnumerable<Relatos> GetAll();
         Relatos Find(int id);
         void Add(Relatos relatos);
-        void Update(Relatos relatos);
+        void Update(Relatos relatos, int id);
         void Remove(int id);
     }
 }

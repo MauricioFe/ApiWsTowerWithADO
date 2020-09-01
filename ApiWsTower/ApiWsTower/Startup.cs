@@ -27,6 +27,8 @@ namespace ApiWsTower
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IUsuarioDAL, UsuarioDAL>();
+            services.AddTransient<IFuncaoDAL, FuncaoDAL>();
+            services.AddTransient<IRelatosDAL, RelatosDAL>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

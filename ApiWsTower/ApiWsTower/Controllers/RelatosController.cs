@@ -59,7 +59,7 @@ namespace ApiWsTower.Controllers
                 return NotFound();
             }
             _relatos = relatos;
-            _dal.Update(_relatos);
+            _dal.Update(_relatos, id);
             return Ok("Editado com sucesso");
         }
 
