@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApiWsTower.Data
 {
-    interface IRelatosDAL
+    public interface IRelatosDAL
     {
         IEnumerable<Relatos> GetAll();
         Relatos Find(int id);

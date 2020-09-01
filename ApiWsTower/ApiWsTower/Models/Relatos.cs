@@ -8,7 +8,7 @@ namespace ApiWsTower.Models
 {
     public class Relatos
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Relato { get; set; }
         public string Imagem { get; set; }
         public decimal Latitude { get; set; }
